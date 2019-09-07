@@ -3,13 +3,13 @@ pipeline {
 
     stages {
         stage('Build Assets') {
-            agent any 
+            //agent any 
             steps {
                 echo 'Building Assets'
             }
         }
         stage('Test') {
-            agent any
+            //agent any
             steps {
                 echo 'Testing stuff...'
             }
