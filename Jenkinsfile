@@ -6,6 +6,7 @@ pipeline {
         stage('Stage1') {
           steps {
             echo 'Step1'
+            echo 'Build Assets'
           }
         }
         stage('Stage2') {
