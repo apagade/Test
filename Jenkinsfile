@@ -11,6 +11,7 @@ pipeline {
         stage('Stage2') {
           steps {
             echo 'Step2'
+            build 'ex-maven-project'
           }
         }
       }
