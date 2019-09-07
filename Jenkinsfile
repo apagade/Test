@@ -1,29 +1,18 @@
 pipeline {
-  agent any
-  stages {
-    stage('Stage1') {
-      parallel {
-        stage('Stage1') {
-          steps {
-            echo 'Step1'
-            echo 'Build Assets'
-          }
+    agent any 
+
+    stages {
+        stage('Build Assets') {
+            agent any 
+            steps {
+                echo 'Building Assets'
+            }
         }
-        stage('Stage2') {
-          steps {
-            echo 'Step2'
-            build 'ex-maven-project'
-          }
+        stage('Test') {
+            agent any
+            steps {
+                echo 'Testing stuff...'
+            }
         }
-      }
     }
-    stage('BlueStage1') {
-      steps {
-        sleep 1
-      }
-    }
-  }
-  environment {
-    Stage1 = ''
-  }
 }
