@@ -64,7 +64,7 @@ Usually there are monitoring and alerting dashboards for such applications which
 
 If such dashboards are missing, we need to identify if this is a user-side or problem at our end. We could quickly try to reproduce the issue at our end by loading the page. If required, we could ask user to run internet speed test (using online speed test website).
 
-If the issue is at our end, we should try to identify which application tier could cause this. We could check various logs, run sample API, run health endpoints etc. We would use various linux commands to check the health of the server.
+If the issue is at our end, we should try to identify which application tier is causing this. We could check various logs, run health endpoints, run the web application's concerned API and measure response time etc. We can use various linux commands to check the health of the server.
 
 From here on we could formulate hypothesis and try to prove them right or wrong.
 
