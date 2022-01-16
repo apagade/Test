@@ -76,12 +76,15 @@ From here on we could formulate hypothesis and try to prove them right or wrong.
 $ git checkout main
 $ git commit -m "first commit"
 $ git commit -m "second commit"
+
 $ git checkout -b feature-branch
 $ git commit -m "awesome feature"
+
 $ git checkout main
 $ git commit -m "third commit"
 $ git merge feature-branch
 $ git branch -d feature-branch
+
 $ git commit -m "fourth commit"
 ```
 
