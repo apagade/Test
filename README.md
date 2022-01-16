@@ -49,7 +49,7 @@ fi
 8. (Web application) Web application is slow since it is logging debug logs due to incorrect logging configuration.
 9. (Web application) Certain API is slow due to various reasons (compute, db etc).
 10. (Server) High CPU utilization due to the web application.
-11. (Server) High CPU utilization due to the other processes (cron jobs, agents etc) running of the server.
+11. (Server) High CPU utilization due to the other processes (cron jobs, agents etc) running on the server.
 12. (Server) Server running out of RAM due to the web application.
 13. (Server) Server running out of RAM due to the other processes.
 14. (Server) Server busy in I/O operations like heavy logging.
@@ -186,7 +186,7 @@ Note that `git add` doesn't really affect the repository in any significant way.
 $ git commit -a
 ```
 
-This will open up a editor to add a commit message. It is good practise to write a short description about the code changes done.
+This will open up an editor to add a commit message. It is good practise to write a short description about the code changes done.
 
 A simpler and common alternative is to provide the commit message as argument in ` git commit` command itself:  
 ```
@@ -208,7 +208,7 @@ Fast-forward (no commit created; -m option ignored)
  1 file changed, 3 insertions(+), 1 deletion(-)
  ```
 
-Now our `master` branch is updated with the the latest feature created. 
+Now our `master` branch is updated with the latest feature created. 
 
 Note how we carried our work independently on the `new-feature-branch` until the code was ready to be merged. Only at the point when we are ready with the new feature, we need to merge the changes into the `master` branch. During the merge we may have to resolve the merge conflict due to the changes made by other developers that were merged into the `master` branch before us. However this is a minor tradeoff in comparison to the advantage we get. There are several best practises to ease the process of conflict resolution which we do not cover here.
 
