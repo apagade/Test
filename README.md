@@ -42,20 +42,31 @@ fi
 1. (User) User has a slow internet connection.
 2. (UI) Very high content is being sent to the client (including html, css, js, images etc).
 3. (UI) Caching for static files is disabled.
-4. (Webserver) Too many open/stale connections to the webserver.
-5. (Webserver) Webserver connection pool is misconfigured to a very small value.
-6. (Web application) Web application is slow due to too many threads or performing compute heavy operations, memory leaks, waiting for DB conn/response etc.
-7. (Web application) Web application is slow since it is logging debug logs due to incorrect logging configuration.
-8. (Web application) Certain API is slow due to various reasons (compute, db etc).
-9. (Server) High CPU utilization due to the web application.
-10. (Server) High CPU utilization due to the other processes (cron jobs, agents etc) running of the server.
-11. (Server) Server running out of RAM due to the web application.
-12. (Server) Server running out of RAM due to the other processes.
-13. (Server) Server busy in I/O operations like heavy logging.
-14. (DB) Too many open/stale DB connections.
-15. (DB) DB connection pool is misconfigured to a very small value.
-16. (DB) Certain DB queries taking too long to execute.
-17. (DB) No index or index was accidentially dropped which was required for performance of certain queries.
+4. (UI) Certain JS code is taking too long to complete and render the page completely.
+5. (Webserver) Too many open/stale connections to the webserver.
+6. (Webserver) Webserver connection pool is misconfigured to a very small value.
+7. (Web application) Web application is slow due to too many threads or performing compute heavy operations, memory leaks, waiting for DB conn/response etc.
+8. (Web application) Web application is slow since it is logging debug logs due to incorrect logging configuration.
+9. (Web application) Certain API is slow due to various reasons (compute, db etc).
+10. (Server) High CPU utilization due to the web application.
+11. (Server) High CPU utilization due to the other processes (cron jobs, agents etc) running of the server.
+12. (Server) Server running out of RAM due to the web application.
+13. (Server) Server running out of RAM due to the other processes.
+14. (Server) Server busy in I/O operations like heavy logging.
+15. (DB) Too many open/stale DB connections.
+16. (DB) DB connection pool is misconfigured to a very small value.
+17. (DB) Certain DB queries taking too long to execute.
+18. (DB) No index or index was accidentially dropped which was required for performance of certain queries.
+
+## 2.2. Describe how you would begin to troubleshoot this issue?
+
+Usually there are monitoring and alerting dashboards for such applications which should notify any SLO breach. Looking at monitoring dashboards should give quick idea if any of the server component is facing/faced any issues during the reported time frame. This should be a good starting point. Based on this we could access if this is user-side issue / one-off issue / genuin issue at our end.
+
+If such dashboards are missing, we need to identify if this is a user-side or problem at our end. We could quickly try to reproduce the issue at our end by loading the page. If required, we could ask user to run internet speed test (using online speed test website).
+
+If the issue is at our end, we should try to identify which application tier could cause this. We could check various logs, run sample API, run health endpoints etc. We would use various linux commands to check the health of the server.
+
+From here on we could formulate hypothesis and try to prove them right or wrong.
 
 # Using Git to implement a new feature/change without affecting the main branch 
 
