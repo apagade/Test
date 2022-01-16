@@ -90,7 +90,7 @@ $ git commit -m "fourth commit"
 
 # Question 4
 
-## Git tutorial for beginners on: Using Git to implement a new feature/change without affecting the main branch 
+## Using Git to implement a new feature/change without affecting the main branch 
 
 ## Why do we need to do this?
 
