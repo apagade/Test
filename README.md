@@ -1,3 +1,62 @@
+# Question 1
+
+## 1.1. Script to get username and their home directories
+```bash
+$ cat user-home-list.sh
+#! /bin/bash
+cat /etc/passwd | awk -F ":" '{print $1 ":" $6}'
+```
+
+## 1.2. Script to be executed hourly
+```bash
+$ cat check-user-changes.sh
+#! /bin/bash
+USER_HOME_SCRIPT=./user-home-list.sh
+CURRENT_USERS_FILE=/var/log/current_users
+USER_CHANGES_FILE=/var/log/user_changes
+
+NEW_MD5=$($USER_HOME_SCRIPT | md5sum)
+
+if [[ ! -f "$CURRENT_USERS_FILE" ]]; then
+        echo "$NEW_MD5" > $CURRENT_USERS_FILE
+else
+        EXISTING_MD5=$(<$CURRENT_USERS_FILE)
+
+        if [[ "$NEW_MD5" != "$EXISTING_MD5" ]]; then
+                DATE_TIME=date "+%F %T"
+                echo "$DATE_TIME" "changes occurred" >> "$USER_CHANGES_FILE"
+                echo "$NEW_MD5" > "$CURRENT_USERS_FILE"
+        fi
+fi
+```
+
+## 1.3. Crontab entry
+```bash
+ 0 * * * * /root/check-user-changes.sh > /dev/null 2>&1
+```
+
+# Question 2
+
+## 2.1. Write down and discuss the possible cause(s) of the slowness
+
+1. (User) User has a slow internet connection.
+2. (UI) Very high content is being sent to the client (including html, css, js, images etc).
+3. (UI) Caching for static files is disabled.
+4. (Webserver) Too many open/stale connections to the webserver.
+5. (Webserver) Webserver connection pool is misconfigured to a very small value.
+6. (Web application) Web application is slow due to too many threads or performing compute heavy operations, memory leaks, waiting for DB conn/response etc.
+7. (Web application) Web application is slow since it is logging debug logs due to incorrect logging configuration.
+8. (Web application) Certain API is slow due to various reasons (compute, db etc).
+9. (Server) High CPU utilization due to the web application.
+10. (Server) High CPU utilization due to the other processes (cron jobs, agents etc) running of the server.
+11. (Server) Server running out of RAM due to the web application.
+12. (Server) Server running out of RAM due to the other processes.
+13. (Server) Server busy in I/O operations like heavy logging.
+14. (DB) Too many open/stale DB connections.
+15. (DB) DB connection pool is misconfigured to a very small value.
+16. (DB) Certain DB queries taking too long to execute.
+17. (DB) No index or index was accidentially dropped which was required for performance of certain queries.
+
 # Using Git to implement a new feature/change without affecting the main branch 
 
     
