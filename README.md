@@ -68,6 +68,23 @@ If the issue is at our end, we should try to identify which application tier is 
 
 From here on we could formulate hypothesis and try to prove them right or wrong.
 
+# Question 3
+
+## What sequence of Git commands could have resulted in this commit graph?
+
+```
+$ git checkout main
+$ git commit -m "first commit"
+$ git commit -m "second commit"
+$ git checkout -b feature-branch
+$ git commit -m "awesome feature"
+$ git checkout main
+$ git commit -m "third commit"
+$ git merge feature-branch
+$ git branch -d feature-branch
+$ git commit -m "fourth commit"
+```
+
 # Using Git to implement a new feature/change without affecting the main branch 
 
     
