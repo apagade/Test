@@ -88,18 +88,16 @@ $ git branch -d feature-branch
 $ git commit -m "fourth commit"
 ```
 
-# Using Git to implement a new feature/change without affecting the main branch 
+# Question 4
 
-    
+## Git tutorial for beginners on: Using Git to implement a new feature/change without affecting the main branch 
+
 ## Why do we need to do this?
-
 
 When we develop a new feature or do a bug fix, our codebase changes can cause conflict with the changes done by someone else in the same file or same part of the codebase and break something which will impact other developer’s work who are working on the same part of the codebase.
 To avoid these Git Branches allow users to collaborate on the same code base at the same time without constantly getting in each other's way, they allow developers to work on features independent of the other contributions being made to the codebase and allows them to add their features to the main codebase when they're ready.
 
-
 Let’s see how we can implement a new feature/change without affecting the main branch referred to as a '**master**' in git.
-
 
 Lets Assume that we already have git installed and configured. Also, we have a remote repository in our Gitlab account. We can create a branch using sequence of below commands:
 
