@@ -181,7 +181,7 @@ Changes to be committed:
         modified:   README.md
 ```
 
-Note that `git add` doesn't really affect the repository in any significant way. The changes are not actually recorded until we commit our changes. To do this, we use the `git commit -a` command. It willadd all modified files to the staging area and commit straightaway:  
+Note that `git add` doesn't really affect the repository in any significant way. The changes are not actually recorded until we commit our changes. To do this, we use the `git commit -a` command. It will add all modified files to the staging area and commit straightaway:  
 ```
 $ git commit -a
 ```
@@ -208,8 +208,10 @@ Fast-forward (no commit created; -m option ignored)
  1 file changed, 3 insertions(+), 1 deletion(-)
  ```
 
-Now our `master` branch is updated with the the latest feature created.
-The last step is to push the changes to the remote repository and create a **pull/merge** request in github.
+Now our `master` branch is updated with the the latest feature created. 
+
+Note how we carried our work independently on the `new-feature-branch` until the code was ready to be merged. Only at the point when we are ready with the new feature, we need to merge the changes into the `master` branch. During the merge we may have to resolve the merge conflict due to the changes made by other developers that were merged into the `master` branch before us. However this is a minor tradeoff in comparison to the advantage we get. There are several best practises to ease the process of conflict resolution which we do not cover here.
+
+The last step is to push the changes to the remote repository and create a **pull/merge** request in gitlab.
  
-Merge requests are used to contribute code to repositories where someone else needs to approve our change. You wouldn't have to open a merge request to your own repository as it can be assumed that your contributions are already at the standard that you're willing to accept and that you don't need anyone else to approve them. However when you're contributing to a repository owned by somebody else they may want to review your change before it is incorporated into the codebase. This could be to make sure that it is of an appropriate standard for that repository, that the code works, and that it will be a positive contribution to the codebase.
- 
+Merge requests are used to contribute code to repositories where someone else needs to approve our change. When we're contributing to a repository owned by somebody else they may want to review our change before it is incorporated into the codebase. This could be to make sure that it is of an appropriate standard for that repository, that the code works, and that it will be a positive contribution to the codebase.
