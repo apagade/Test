@@ -215,3 +215,9 @@ Note how we carried our work independently on the `new-feature-branch` until the
 The last step is to push the changes to the remote repository and create a **pull/merge** request in gitlab.
  
 Merge requests are used to contribute code to repositories where someone else needs to approve our change. When we're contributing to a repository owned by somebody else they may want to review our change before it is incorporated into the codebase. This could be to make sure that it is of an appropriate standard for that repository, that the code works, and that it will be a positive contribution to the codebase.
+
+# Question 5
+
+## What is a technical book/blog you read recently that you enjoyed?
+
+I frequently refer to https://www.baeldung.com/linux/ blog for learning various linux commands and concepts. The posts are simple, easy to understand and contains the working commands which could be easily adopted and used for our purpose.
