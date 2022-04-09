@@ -54,14 +54,14 @@ From the request payload shown in the logs, we can see that the `gender` attribu
 
 ## Case 3
 
-From the logs, we can see the information of the 6 guests. Only the guest with last name Frederik has optIns parameter [misc = false]. Thus following guests can be contacted:
-Frosh
-Johnson
-Andersen
-Stevens
-Brighton
+From the logs, we can see the information of the 6 guests. Only the guest with last name Frederik has optIns parameter [misc = false]. Thus following guests can be contacted:  
+Frosh  
+Johnson  
+Andersen  
+Stevens  
+Brighton  
 
-If we further try to interpret from the logs, we can see that some of the guests have canceled their bookings. If this invitation is about reviewing the hotel, we do not want to send the invitation to the guests who have canceled their bookings. Thus we should send the invitation to leave a review only to following guests:
-Andersen
-Stevens
-Brighton
+If we further try to interpret from the logs, we can see that some of the guests have canceled their bookings. If this invitation is about reviewing the hotel, we do not want to send the invitation to the guests who have canceled their bookings. Thus we should send the invitation to leave a review only to following guests:  
+Andersen  
+Stevens  
+Brighton  
