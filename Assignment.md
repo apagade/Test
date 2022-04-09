@@ -50,7 +50,7 @@ Looks like the JSON file uploaded did not contain any guest information. Possibl
 
 ## Case 2
 
-From the request payload shown in the logs, we can see that the `gender` attribute of the customers has the value `na`. Looks like the system does not have the gender attribute of the customers (or got deleted due to some reason). This value is most likely refered to formulate the correct salutation in the emails sent to the customer. Since it is missing, the customers are receiving the emails without the salutation.
+From the request payload shown in the logs, we can see that the `gender` attribute of the customers has the value `na`. Looks like the system does not have the gender attribute of the customers (or got deleted due to some reason). This value is most likely referred to formulate the correct salutation in the emails sent to the customer. Since it is missing, the customers are receiving the emails without the salutation.
 
 ## Case 3
 
@@ -63,7 +63,7 @@ Stevens
 Brighton  
 ```
 
-If we further try to interpret from the logs, we can see that some of the guests have canceled their bookings. If this invitation is about reviewing the hotel, we do not want to send the invitation to the guests who have canceled their bookings. Thus we should send the invitation to leave a review only to following guests:  
+If we further try to interpret the logs, we can see that some of the guests have canceled their bookings. If this invitation is about reviewing the hotel, we do not want to send the invitation to the guests who have canceled their bookings. Thus we should send the invitation to leave a review only to the following guests:  
 ```
 Andersen  
 Stevens  
