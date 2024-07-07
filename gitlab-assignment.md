@@ -16,7 +16,7 @@ USER_HOME_SCRIPT=./user-home-list.sh
 CURRENT_USERS_FILE=/var/log/current_users
 USER_CHANGES_FILE=/var/log/user_changes
 
-NEW_MD5=$($USER_HOME_SCRIPT | md5sum)
+NEW_MD5=$($USER_HOME_SCRIPT | md5sum | awk '{ print $1 }')
 
 if [[ ! -f "$CURRENT_USERS_FILE" ]]; then
         echo "$NEW_MD5" > $CURRENT_USERS_FILE
@@ -24,7 +24,7 @@ else
         EXISTING_MD5=$(<$CURRENT_USERS_FILE)
 
         if [[ "$NEW_MD5" != "$EXISTING_MD5" ]]; then
-                DATE_TIME=date "+%F %T"
+                DATE_TIME=$(date "+%F %T")
                 echo "$DATE_TIME" "changes occurred" >> "$USER_CHANGES_FILE"
                 echo "$NEW_MD5" > "$CURRENT_USERS_FILE"
         fi
