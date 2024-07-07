@@ -4,7 +4,8 @@
 ```bash
 $ cat user-home-list.sh
 #! /bin/bash
-cat /etc/passwd | awk -F ":" '{print $1 ":" $6}'
+# Print usernames and their home directories from /etc/passwd, skipping comment and empty lines
+awk -F: '$1 !~ /^#/ && NF {print $1 ":" $6}' /etc/passwd
 ```
 
 ## 1.2. Script to be executed hourly
