@@ -110,19 +110,45 @@ From here on we could formulate hypothesis and try to prove them right or wrong.
 ## What sequence of Git commands could have resulted in this commit graph?
 
 ```
-$ git checkout main
-$ git commit -m "first commit"
-$ git commit -m "second commit"
+# Initialize an empty Git repository with 'main' as the default branch
+git init --initial-branch=main
 
-$ git checkout -b feature-branch
-$ git commit -m "awesome feature"
+# Create the first commit
+echo "first" > file.txt
+git add file.txt
+git commit -m "first commit"
 
-$ git checkout main
-$ git commit -m "third commit"
-$ git merge feature-branch
-$ git branch -d feature-branch
+# Create the second commit
+echo "second" >> file.txt
+git add file.txt
+git commit -m "second commit"
 
-$ git commit -m "fourth commit"
+# Create and switch to a new branch feature-branch
+git checkout -b feature-branch
+
+# Create a commit on feature-branch
+echo "awesome feature" >> feature.txt
+git add feature.txt
+git commit -m "awesome feature"
+
+# Switch back to main branch
+git checkout main
+
+# Create the third commit
+echo "third" >> file.txt
+git add file.txt
+git commit -m "third commit"
+
+# Merge feature-branch into main
+git merge feature-branch
+
+# Delete feature-branch
+git branch -d feature-branch
+
+# Create the fourth commit on main branch
+echo "fourth" >> file.txt
+git add file.txt
+git commit -m "fourth commit"
 ```
 
 # Question 4
