@@ -4,7 +4,10 @@
 ```bash
 $ cat user-home-list.sh
 #! /bin/bash
-# Print usernames and their home directories from /etc/passwd, skipping comment and empty lines
+# Process the /etc/passwd file:
+# - Use ':' as the field separator.
+# - For each line, check that the first field (username) does not start with '#' and that the line is not empty.
+# - If both conditions are met, print the username and home directory (fields 1 and 6) separated by ':'.
 awk -F: '$1 !~ /^#/ && NF {print $1 ":" $6}' /etc/passwd
 ```
 
@@ -12,28 +15,61 @@ awk -F: '$1 !~ /^#/ && NF {print $1 ":" $6}' /etc/passwd
 ```bash
 $ cat check-user-changes.sh
 #! /bin/bash
-USER_HOME_SCRIPT=./user-home-list.sh
-CURRENT_USERS_FILE=/var/log/current_users
-USER_CHANGES_FILE=/var/log/user_changes
 
-NEW_MD5=$($USER_HOME_SCRIPT | md5sum | awk '{ print $1 }')
+LOG_PATH=/var/log/
 
+# Redirect stdout and stderr to a log file for logging any errors and troubeshooting
+LOG_FILE="${LOG_PATH}check-user-changes.log"
+exec > "$LOG_FILE" 2>&1
+
+USER_HOME_SCRIPT_PATH=./
+USER_HOME_SCRIPT_NAME=user-home-list.sh
+
+# Combine path and name to get the full path to the user home script
+USER_HOME_SCRIPT="${USER_HOME_SCRIPT_PATH}${USER_HOME_SCRIPT_NAME}"
+
+CURRENT_USERS_FILE="${LOG_PATH}current_users"
+USER_CHANGES_FILE="${LOG_PATH}user_changes"
+
+# Calculate the new MD5 checksum of the current users list
+NEW_MD5=$($USER_HOME_SCRIPT | md5sum | awk '{ print $1 }') || { 
+    echo "Error: Failed to run ${USER_HOME_SCRIPT}" >&2
+    exit 1
+}
+
+# Check if the file storing the current MD5 checksum exists
 if [[ ! -f "$CURRENT_USERS_FILE" ]]; then
-        echo "$NEW_MD5" > $CURRENT_USERS_FILE
+        # If the file does not exist, create it and store the new MD5 checksum
+        echo "$NEW_MD5" > $CURRENT_USERS_FILE || {
+                echo "Error: Failed to create ${CURRENT_USERS_FILE}" >&2
+                exit 1
+        }
 else
+        # If the file exists, read the existing MD5 checksum from the file
         EXISTING_MD5=$(<$CURRENT_USERS_FILE)
 
+        # Compare the new MD5 checksum with the existing one
         if [[ "$NEW_MD5" != "$EXISTING_MD5" ]]; then
+
+                # If they are different, log the date and time of the change
                 DATE_TIME=$(date "+%F %T")
-                echo "$DATE_TIME" "changes occurred" >> "$USER_CHANGES_FILE"
-                echo "$NEW_MD5" > "$CURRENT_USERS_FILE"
+                echo "$DATE_TIME" "changes occurred" >> "$USER_CHANGES_FILE" || {
+                    echo "Error: Failed to write to $USER_CHANGES_FILE" >&2
+                    exit 1
+                }
+
+                # Update the file with the new MD5 checksum
+                echo "$NEW_MD5" > "$CURRENT_USERS_FILE" || {
+                    echo "Error: Failed to update $CURRENT_USERS_FILE" >&2
+                    exit 1
+                }
         fi
 fi
 ```
 
 ## 1.3. Crontab entry
 ```bash
- 0 * * * * /root/check-user-changes.sh > /dev/null 2>&1
+ 0 * * * * /home/user/scripts/check-user-changes.sh > /dev/null 2>&1
 ```
 
 # Question 2
