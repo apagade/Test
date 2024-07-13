@@ -329,3 +329,10 @@ Git's branching mechanism empowers teams to collaborate efficiently by isolating
 
 * I recently read [Learning SQL, 3rd Edition](https://www.oreilly.com/library/view/learning-sql-3rd/9781492057604/) by Alan Beaulieu to refresh my SQL knowledge and also gain some new insights.
 * I frequently visit the famous [Brendan Gregg's website](https://www.brendangregg.com/index.html) and always find something new to learn.
+
+# Citations
+
+* ChatGPT (free plan) was used during this assignment. However all the scripts were hand written and well tested. ChatGPT was used mainly for:
+    - Proofing the text for grammatical errors and better sentence formation. ChatGPT was not used to generate the text from scratch.
+    - PostgreSQL and Tomcat troubleshoot commands and suggestions were asked to ChatGPT and verify on internal or by personal experience.
+    - Conclusion section of the blog post was largely generated using ChatGPT.
