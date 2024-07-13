@@ -80,15 +80,15 @@ fi
 
 If the system is running out of CPU, memory, disk, or network resources, it will cause the DB, web server, and web application to run slow. Some useful commands to quickly check the system's health:
 ```bash
-ps
-top
-htop
-vmstat 1
-sar
-iotop
-iostat -x 1
-nstat
-ip
+ps          # Shows currently running processes, useful to identify which processes are consuming resources or causing issues.
+top         # Provides real-time overview of system processes and their resource usage
+htop        # Interactive version of `top`
+vmstat 1    # Displays virtual memory statistics including memory, swap, disk I/O, and CPU activity every second
+sar         # Collects, reports, and saves system activity information, allowing historical analysis
+iotop       # Shows disk I/O usage by processes in real-time
+iostat -x 1 # Reports extended I/O statistics every second
+nstat       # Displays network statistics, including network interfaces, connections, and traffic
+ip          # Provides versatile command-line tools for configuring network interfaces, routing, and tunnels
 ```
 
 ### 2. Slow DB Queries
@@ -118,7 +118,7 @@ Some useful commands (assuming Tomcat server):
 ps aux | grep tomcat
 top -p <tomcat_pid> # Monitor tomcat resource usage
 
-jstack -l <tomcat_pid> > thread_dump.txt # enerate a thread dump to analyze what the Tomcat threads are doing
+jstack -l <tomcat_pid> > thread_dump.txt # Generate a thread dump to analyze what the Tomcat threads are doing
 
 jmap -dump:live,format=b,file=heap_dump.hprof <tomcat_pid> # Create a heap dump to analyze memory usage and potential memory leaks.
 
