@@ -133,15 +133,15 @@ Finally, there could be issues on the user's end as well. For example, the user 
 
 ## 2.2. Describe how you would begin to troubleshoot this issue?
 
-Ideally, there are monitoring and alerting dashboards for such applications that should notify of any SLO breach proactively even before the user reports the issue. Looking at monitoring dashboards should give a quick idea if any of the server components are facing/have faced any issues during the reported time frame. This should be a good starting point.
+Ideally, there are monitoring and alerting dashboards for such applications that should notify of any SLO breach proactively, even before the user reports the issue. Reviewing monitoring dashboards should quickly indicate if any server components are experiencing or have experienced issues during the reported time frame, which is a good starting point.
 
-If such alerts and monitoring are not in place, we should first try to reproduce the issue by following the user's steps. We should identify which REST endpoint is serving the user's request and try to study its response time. We could log in to the machine and use the commands mentioned in the above section to troubleshoot and try to identify the root cause.
+If such alerts and monitoring are not in place, we should first attempt to reproduce the issue by following the user's steps. We need to identify which REST endpoint is handling the user's request and analyze its response time. Logging into the machine, we can utilize the commands mentioned in the above section to troubleshoot and pinpoint the root cause.
 
-From here on, we could formulate hypotheses and try to prove them right or wrong.
+Subsequently, we can formulate hypotheses and proceed to test them to verify their validity.
 
 ## 2.3. System Design and Architectural Tradeoffs
 
-In the current setup, there is only one machine serving the user requests. Also, the application, web server, and the database are hosted on the same machine. Such architecture might be enough for trivial, non-critical, low usage services, especially for internal users. However, this is not a recommended architecture for any serious use case because there is no high availability or scope for load balancing using horizontal scaling. Such a system is a single point of failure. It would also require downtime every time we perform a production deployment.
+In the current setup, there is only one machine serving user requests. Additionally, the application, web server, and database are all hosted on the same machine. This architecture might suffice for trivial, non-critical, low-usage services, particularly for internal users. However, it is not recommended for serious use cases due to the lack of high availability or the ability to scale horizontally for load balancing. Such a system represents a single point of failure. Moreover, it would require downtime every time a production deployment is performed.
 
 Typically, we would host the web server and database on separate machines. Additionally, placing the web server behind a load balancer ensures that all user requests are routed through it. This setup allows for multiple instances of the web server to handle the load, thereby improving availability even during deployments. Moreover, configuring the database machine with higher resources independent of the web server optimizes resource utilization.
 
