@@ -78,7 +78,7 @@ fi
 
 ### 1. System running out of resources
 
-If the system is running out of CPU, memory, disk or network resources, it will cause the DB, Webserver and Web application to run slow. Some useful commands to quickly check the system health:
+If the system is running out of CPU, memory, disk, or network resources, it will cause the DB, web server, and web application to run slow. Some useful commands to quickly check the system's health:
 ps
 top
 htop
@@ -91,7 +91,7 @@ ip
 
 ### 2. Slow DB Queries
 
-The DB could be slow in processing the queries. This could be either due to overloaded DB, inefficient/slow queries or lack of optimizations like missing indexes (could be deleted due to recent deployment) etc. 
+The DB could be slow in processing the queries. This could be either due to an overloaded DB, inefficient/slow queries, or a lack of optimizations like missing indexes (which could have been deleted due to recent deployment), etc.
 
 Some useful commands (assuming PostgreSQL Database):
 
@@ -107,7 +107,7 @@ SHOW max_connections; -- The maximum number of concurrent connections to the dat
 
 ### 3. Slow Web Server
 
-The web server serving the requests could be slow. This could be due to insufficient resources like CPU/Memory, too many open/stale connections to the webserver and/or misconfiguraiton of heap size, connection pool etc.
+The web server serving the requests could be slow. This could be due to insufficient resources like CPU/memory, too many open/stale connections to the web server, and/or misconfiguration of heap size, connection pool, etc.
 
 Some useful commands (assuming Tomcat server):
 ps aux | grep tomcat
@@ -123,27 +123,27 @@ vi /path/to/tomcat/conf/server.xml // Tomcat configurations
 
 ### 4. Slow Application
 
-Recent code changes or deployment issues could cause performance degradation. Look for change logs, any changes to configurations etc. Quick look at the application logs for increase in errors, stacktrace could be helpful.
+Recent code changes or deployment issues could cause performance degradation. Look for change logs, any changes to configurations, etc. A quick look at the application logs for an increase in errors or stack traces could be helpful.
 
-Tools like VisualVM (jvisualvm) or jconsole could be helpful to understand the JVM based applications performance.
+Tools like VisualVM (jvisualvm) or jconsole could be helpful to understand JVM-based application performance.
 
 ### 5. User Issues
 
-Finally there could be issues on the user end as well. For example the user has a slow internet connection or network congestion, or a slow/overloaded machine/browser. Quick chat with the user and asking to perfor internet speed test, system restart etc could help quickly identify and unblock the user.
+Finally, there could be issues on the user's end as well. For example, the user has a slow internet connection or network congestion, or a slow/overloaded machine/browser. A quick chat with the user and asking them to perform an internet speed test or system restart could help quickly identify and unblock the user.
 
 ## 2.2. Describe how you would begin to troubleshoot this issue?
 
-Ideally there are monitoring and alerting dashboards for such applications which should notify any SLO breach proactively even before user reporting the issue. Looking at monitoring dashboards should give quick idea if any of the server component is facing/faced any issues during the reported time frame. This should be a good starting point.
+Ideally, there are monitoring and alerting dashboards for such applications that should notify of any SLO breach proactively even before the user reports the issue. Looking at monitoring dashboards should give a quick idea if any of the server components are facing/have faced any issues during the reported time frame. This should be a good starting point.
 
-If such alerts and monitoring is not in place, we should first try to reproduce the issue by following the user's steps. We should identify which REST endpoint is serving the user's request and try to study it's response time. We could log in to the machine and use above the commands mentioned in the above section to troubleshoot and try to identify the root cause.
+If such alerts and monitoring are not in place, we should first try to reproduce the issue by following the user's steps. We should identify which REST endpoint is serving the user's request and try to study its response time. We could log in to the machine and use the commands mentioned in the above section to troubleshoot and try to identify the root cause.
 
-From here on we could formulate hypothesis and try to prove them right or wrong.
+From here on, we could formulate hypotheses and try to prove them right or wrong.
 
 ## 2.3. System Design and Architectural Tradeoffs
 
-In the current setup, there is only one machine serving the user requests. Also the application, webserver and the database are hosted on the same machine. Such architect might be enough for trivial, non-critical, low usage services especially for the internal users. However this is not a recommended architecture for any serious use case because there is no high availability or scope for load balancing using horizontal scaling. The sytem is single point of failure.
+In the current setup, there is only one machine serving the user requests. Also, the application, web server, and the database are hosted on the same machine. Such architecture might be enough for trivial, non-critical, low usage services, especially for internal users. However, this is not a recommended architecture for any serious use case because there is no high availability or scope for load balancing using horizontal scaling. The system is a single point of failure.
 
-Typically, we would host the application/webserver and database on different machines. We would also have the webserver behing a load balancer and all the user requests being received by the load balancer. This way we could have multiple instances of the webserver running each sharing the load. We could also configure the DB machine with higher resources independetly of the webserver machine.
+Typically, we would host the application/web server and database on different machines. We would also have the web server behind a load balancer with all user requests being received by the load balancer. This way, we could have multiple instances of the web server running, each sharing the load. We could also configure the DB machine with higher resources independently of the web server machine.
 
 # Question 3
 
