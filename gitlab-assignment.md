@@ -76,34 +76,74 @@ fi
 
 ## 2.1. Write down and discuss the possible cause(s) of the slowness
 
-1. (User) User has a slow internet connection.
-2. (UI) Very high content is being sent to the client (including html, css, js, images etc).
-3. (UI) Caching for static files is disabled.
-4. (UI) Certain JS code is taking too long to complete and render the page completely.
-5. (Webserver) Too many open/stale connections to the webserver.
-6. (Webserver) Webserver connection pool is misconfigured to a very small value.
-7. (Web application) Web application is slow due to too many threads or performing compute heavy operations, memory leaks, waiting for DB conn/response etc.
-8. (Web application) Web application is slow since it is logging debug logs due to incorrect logging configuration.
-9. (Web application) Certain API is slow due to various reasons (compute, db etc).
-10. (Server) High CPU utilization due to the web application.
-11. (Server) High CPU utilization due to the other processes (cron jobs, agents etc) running on the server.
-12. (Server) Server running out of RAM due to the web application.
-13. (Server) Server running out of RAM due to the other processes.
-14. (Server) Server busy in I/O operations like heavy logging.
-15. (DB) Too many open/stale DB connections.
-16. (DB) DB connection pool is misconfigured to a very small value.
-17. (DB) Certain DB queries taking too long to execute.
-18. (DB) No index or index was accidentially dropped which was required for performance of certain queries.
+### 1. System running out of resources
+
+If the system is running out of CPU, memory, disk or network resources, it will cause the DB, Webserver and Web application to run slow. Some useful commands to quickly check the system health:
+ps
+top
+htop
+vmstat 1
+sar
+iotop
+iostat -x 1
+nstat
+ip
+
+### 2. Slow DB Queries
+
+The DB could be slow in processing the queries. This could be either due to overloaded DB, inefficient/slow queries or lack of optimizations like missing indexes (could be deleted due to recent deployment) etc. 
+
+Some useful commands (assuming PostgreSQL Database):
+
+SELECT * FROM pg_stat_activity; -- Views currently running queries
+
+SELECT * FROM pg_indexes WHERE tablename = 'your_table'; -- Lists all indexes in the database
+
+SELECT * FROM pg_stat_user_tables; -- Shows statistics about table activity
+
+EXPLAIN ANALYZE SELECT * FROM your_table WHERE your_conditions; -- Analyzes a query's execution plan
+
+SHOW max_connections; -- The maximum number of concurrent connections to the database
+
+### 3. Slow Web Server
+
+The web server serving the requests could be slow. This could be due to insufficient resources like CPU/Memory, too many open/stale connections to the webserver and/or misconfiguraiton of heap size, connection pool etc.
+
+Some useful commands (assuming Tomcat server):
+ps aux | grep tomcat
+top -p <tomcat_pid> // Monitor tomcat resource usage
+
+jstack -l <tomcat_pid> > thread_dump.txt // enerate a thread dump to analyze what the Tomcat threads are doing
+
+jmap -dump:live,format=b,file=heap_dump.hprof <tomcat_pid> // Create a heap dump to analyze memory usage and potential memory leaks.
+
+netstat -anp | grep <tomcat_pid> // Monitor open network connections and their states.
+
+vi /path/to/tomcat/conf/server.xml // Tomcat configurations
+
+### 4. Slow Application
+
+Recent code changes or deployment issues could cause performance degradation. Look for change logs, any changes to configurations etc. Quick look at the application logs for increase in errors, stacktrace could be helpful.
+
+Tools like VisualVM (jvisualvm) or jconsole could be helpful to understand the JVM based applications performance.
+
+### 5. User Issues
+
+Finally there could be issues on the user end as well. For example the user has a slow internet connection or network congestion, or a slow/overloaded machine/browser. Quick chat with the user and asking to perfor internet speed test, system restart etc could help quickly identify and unblock the user.
 
 ## 2.2. Describe how you would begin to troubleshoot this issue?
 
-Usually there are monitoring and alerting dashboards for such applications which should notify any SLO breach. Looking at monitoring dashboards should give quick idea if any of the server component is facing/faced any issues during the reported time frame. This should be a good starting point. Based on this we could access if this is user-side issue / one-off issue / genuin issue at our end.
+Ideally there are monitoring and alerting dashboards for such applications which should notify any SLO breach proactively even before user reporting the issue. Looking at monitoring dashboards should give quick idea if any of the server component is facing/faced any issues during the reported time frame. This should be a good starting point.
 
-If such dashboards are missing, we need to identify if this is a user-side or problem at our end. We could quickly try to reproduce the issue at our end by loading the page. If required, we could ask user to run internet speed test (using online speed test website).
-
-If the issue is at our end, we should try to identify which application tier is causing this. We could check various logs, run health endpoints, run the web application's concerned API and measure response time etc. We can use various linux commands to check the health of the server.
+If such alerts and monitoring is not in place, we should first try to reproduce the issue by following the user's steps. We should identify which REST endpoint is serving the user's request and try to study it's response time. We could log in to the machine and use above the commands mentioned in the above section to troubleshoot and try to identify the root cause.
 
 From here on we could formulate hypothesis and try to prove them right or wrong.
+
+## 2.3. System Design and Architectural Tradeoffs
+
+In the current setup, there is only one machine serving the user requests. Also the application, webserver and the database are hosted on the same machine. Such architect might be enough for trivial, non-critical, low usage services especially for the internal users. However this is not a recommended architecture for any serious use case because there is no high availability or scope for load balancing using horizontal scaling. The sytem is single point of failure.
+
+Typically, we would host the application/webserver and database on different machines. We would also have the webserver behing a load balancer and all the user requests being received by the load balancer. This way we could have multiple instances of the webserver running each sharing the load. We could also configure the DB machine with higher resources independetly of the webserver machine.
 
 # Question 3
 
