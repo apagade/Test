@@ -341,4 +341,5 @@ Git's branching mechanism empowers teams to collaborate efficiently by isolating
 * ChatGPT (free plan) was used during this assignment. However all the scripts were hand written and well tested. ChatGPT was used mainly for:
     - Proofing the text for grammatical errors and better sentence formation. ChatGPT was not used to generate the text from scratch.
     - PostgreSQL and Tomcat troubleshoot commands and suggestions were asked to ChatGPT and verfied on internet or by personal experience.
+    - "Can I mention default branch as main in ‘git init’ command?"
     - Conclusion section of the blog post was largely generated using ChatGPT.
