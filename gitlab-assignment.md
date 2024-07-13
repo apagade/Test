@@ -129,17 +129,17 @@ $ git commit -m "fourth commit"
 
 ## Using Git to implement a new feature/change without affecting the main branch 
 
-### Introduction
+### 1. Introduction
 
 One of the key advantages of Git is that it makes collaboration easier allowing multiple people to work in parallel without blocking each other. In this article we will see how we can implement a new feature without affecting the main branch.
 
-### Why do we need branching?
+### 2. Why do we need branching?
 
 When we develop a new feature or fix a bug, it is very likely that some other developer is also working on the same file or same part of the codebase. It would be extremely difficult to coordinate with each other if we have to continuously ensure that we are not breaking each other's code. Imagine when dozens or even hundreds of developers are working on the same codebase.
 
 To avoid such situations, Git provides branching feature. It allows users to collaborate on the same code base at the same time without constantly getting in each other's way, it allows developers to work on features independent of the other contributions being made to the codebase and allows them to add their features to the main codebase when they're ready.
 
-### How to use branches?
+### 3. How to use branches?
 
 Let's assume that we already have `git` installed and configured. Also, we have a remote repository in our Gitlab account. 
 
@@ -252,6 +252,10 @@ Note how we carried our work independently on the `new-feature-branch` until the
 The last step is to push the changes to the remote repository and create a **pull/merge** request in gitlab.
  
 Merge requests are used to contribute code to repositories where someone else needs to approve our change. When we're contributing to a repository owned by somebody else they may want to review our change before it is incorporated into the codebase. This could be to make sure that it is of an appropriate standard for that repository, that the code works, and that it will be a positive contribution to the codebase.
+
+### 4. Conclusion
+
+Git's branching mechanism empowers teams to collaborate efficiently by isolating changes into separate branches. This approach minimizes conflicts and enables developers to work independently on features or fixes. When changes are ready, merging them into the main master branch becomes a controlled process, ensuring code quality and facilitating seamless integration of new features. This structured workflow not only enhances productivity but also promotes better code management and team coordination in software development projects.
 
 # Question 5
 
