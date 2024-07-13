@@ -131,17 +131,17 @@ $ git commit -m "fourth commit"
 
 ### Introduction
 
-One of the key advantage of Git is that it makes collaboration easier allowing mutiple people to work in parallel without blocking each other. In this artilce we will see how we can implement a new feature without affecting the main branch.
+One of the key advantages of Git is that it makes collaboration easier allowing multiple people to work in parallel without blocking each other. In this article we will see how we can implement a new feature without affecting the main branch.
 
 ### Why do we need branching?
 
-When we develop a new feature or fix a bug, it is very likely that some other developer is also working on the same file or same part of the codebase. It would be extremely difficult to co-ordinate with each other if we have to continously ensure that we are not breaking each others code. Imagine when dozens or even hundreds of developers are working on the same codebase.
+When we develop a new feature or fix a bug, it is very likely that some other developer is also working on the same file or same part of the codebase. It would be extremely difficult to coordinate with each other if we have to continuously ensure that we are not breaking each other's code. Imagine when dozens or even hundreds of developers are working on the same codebase.
 
-To avoid such situations, Git provides branching feature. It allow users to collaborate on the same code base at the same time without constantly getting in each other's way, it allow developers to work on features independent of the other contributions being made to the codebase and allows them to add their features to the main codebase when they're ready.
+To avoid such situations, Git provides branching feature. It allows users to collaborate on the same code base at the same time without constantly getting in each other's way, it allows developers to work on features independent of the other contributions being made to the codebase and allows them to add their features to the main codebase when they're ready.
 
 ### How to use branches?
 
-Lets assume that we already have `git` installed and configured. Also, we have a remote repository in our Gitlab account. 
+Let's assume that we already have `git` installed and configured. Also, we have a remote repository in our Gitlab account. 
 
 Let's create a branch using following commands:
 ```
@@ -175,14 +175,14 @@ This command creates a new branch called `new-feature-branch` and the `-b` argum
 
 This branch is a snapshot of the `master` at that current date and time. Any changes to `master` will not be reflected in this branch and vis-a-versa.
 
-We can verify which branch we're on by using `git branch` command. The output will show an asterisk `*` beside the currently checked out branch:
+We can verify which branch we're on by using the `git branch` command. The output will show an asterisk `*` beside the currently checked out branch:
  ```
 $ git branch
   master
 * new-feature-branch
 ```
 
-Now that we have created new feature branch we can make our changes to the code locally. After the changes are done we can commit changes to this branch.
+Now that we have created a new feature branch we can make our changes to the code locally. After the changes are done we can commit changes to this branch.
 
 The `git status` command displays the state of the working directory and the staging area. It helps us track which files have been created/modified/changed/deleted. For example:
 ```
@@ -223,14 +223,14 @@ Note that `git add` doesn't really affect the repository in any significant way.
 $ git commit -a
 ```
 
-This will open up an editor to add a commit message. It is good practise to write a short description about the code changes done.
+This will open up an editor to add a commit message. It is good practice to write a short description about the code changes done.
 
 A simpler and common alternative is to provide the commit message as argument in ` git commit` command itself:  
 ```
  $ git commit -m "Feature: Added awesome feature"
 ```
 
-We can use 'git log' command to get information about the commit history. It lists the recent commit first.
+We can use the 'git log' command to get information about the commit history. It lists the recent commit first.
 
 Once the changes are committed locally, the next step is to merge our feature branch into the master. To do this we first need to checkout the `master` and then execute `git merge` command:
 ```
@@ -238,7 +238,7 @@ $ git checkout master
 Switched to branch 'master'
 Your branch is up to date with 'origin/master'.
 
-$ git merge new-feature-branch -m "Feature: New imaplemented feature"
+$ git merge new-feature-branch -m "Feature: New feature"
 Updating a7add27..f860def
 Fast-forward (no commit created; -m option ignored)
  README.md | 4 +++-
@@ -247,7 +247,7 @@ Fast-forward (no commit created; -m option ignored)
 
 Now our `master` branch is updated with the latest feature created. 
 
-Note how we carried our work independently on the `new-feature-branch` until the code was ready to be merged. Only at the point when we are ready with the new feature, we need to merge the changes into the `master` branch. During the merge we may have to resolve the merge conflict due to the changes made by other developers that were merged into the `master` branch before us. However this is a minor tradeoff in comparison to the advantage we get. There are several best practises to ease the process of conflict resolution which we do not cover here.
+Note how we carried our work independently on the `new-feature-branch` until the code was ready to be merged. Only at the point when we are ready with the new feature, we need to merge the changes into the `master` branch. During the merge we may have to resolve the merge conflict due to the changes made by other developers that were merged into the `master` branch before us. However this is a minor tradeoff in comparison to the advantage we get. There are several best practices to ease the process of conflict resolution which we do not cover here.
 
 The last step is to push the changes to the remote repository and create a **pull/merge** request in gitlab.
  
