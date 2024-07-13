@@ -143,7 +143,7 @@ From here on, we could formulate hypotheses and try to prove them right or wrong
 
 In the current setup, there is only one machine serving the user requests. Also, the application, web server, and the database are hosted on the same machine. Such architecture might be enough for trivial, non-critical, low usage services, especially for internal users. However, this is not a recommended architecture for any serious use case because there is no high availability or scope for load balancing using horizontal scaling. Such a system is a single point of failure. It would also require downtime every time we perform a production deployment.
 
-Typically, we should host the web server and database on different machines. We should also have the web server behind a load balancer so that all user requests are received by the load balancer. This way, we could have multiple instances of the web server running, each sharing the load increasing availability even during deployments. We could also configure the DB machine with higher resources independently of the web server machine increase better utilization of the resources.
+Typically, we would host the web server and database on separate machines. Additionally, placing the web server behind a load balancer ensures that all user requests are routed through it. This setup allows for multiple instances of the web server to handle the load, thereby improving availability even during deployments. Moreover, configuring the database machine with higher resources independent of the web server optimizes resource utilization.
 
 # Question 3
 
