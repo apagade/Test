@@ -261,4 +261,5 @@ Git's branching mechanism empowers teams to collaborate efficiently by isolating
 
 ## What is a technical book/blog you read recently that you enjoyed?
 
-I frequently refer to https://www.baeldung.com/linux/ blog for learning various linux commands and concepts. The posts are simple, easy to understand and contains the working commands which could be easily adopted and used for our purpose.
+* I recently read [Learning SQL, 3rd Edition](https://www.oreilly.com/library/view/learning-sql-3rd/9781492057604/) by Alan Beaulieu to refresh by SQL knowledge and also gain some new insights.
+* I frequently refer to https://www.baeldung.com/linux/ blog for learning various linux commands and concepts. The posts are simple, easy to understand and contains the working commands which could be easily adopted and used for our purpose.
