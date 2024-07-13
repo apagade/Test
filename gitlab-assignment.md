@@ -79,6 +79,7 @@ fi
 ### 1. System running out of resources
 
 If the system is running out of CPU, memory, disk, or network resources, it will cause the DB, web server, and web application to run slow. Some useful commands to quickly check the system's health:
+```bash
 ps
 top
 htop
@@ -88,6 +89,7 @@ iotop
 iostat -x 1
 nstat
 ip
+```
 
 ### 2. Slow DB Queries
 
@@ -95,6 +97,7 @@ The DB could be slow in processing the queries. This could be either due to an o
 
 Some useful commands (assuming PostgreSQL Database):
 
+```sql
 SELECT * FROM pg_stat_activity; -- Views currently running queries
 
 SELECT * FROM pg_indexes WHERE tablename = 'your_table'; -- Lists all indexes in the database
@@ -104,28 +107,31 @@ SELECT * FROM pg_stat_user_tables; -- Shows statistics about table activity
 EXPLAIN ANALYZE SELECT * FROM your_table WHERE your_conditions; -- Analyzes a query's execution plan
 
 SHOW max_connections; -- The maximum number of concurrent connections to the database
+```
 
 ### 3. Slow Web Server
 
 The web server serving the requests could be slow. This could be due to insufficient resources like CPU/memory, too many open/stale connections to the web server, and/or misconfiguration of heap size, connection pool, etc.
 
 Some useful commands (assuming Tomcat server):
+```bash
 ps aux | grep tomcat
-top -p <tomcat_pid> // Monitor tomcat resource usage
+top -p <tomcat_pid> # Monitor tomcat resource usage
 
-jstack -l <tomcat_pid> > thread_dump.txt // enerate a thread dump to analyze what the Tomcat threads are doing
+jstack -l <tomcat_pid> > thread_dump.txt # enerate a thread dump to analyze what the Tomcat threads are doing
 
-jmap -dump:live,format=b,file=heap_dump.hprof <tomcat_pid> // Create a heap dump to analyze memory usage and potential memory leaks.
+jmap -dump:live,format=b,file=heap_dump.hprof <tomcat_pid> # Create a heap dump to analyze memory usage and potential memory leaks.
 
-netstat -anp | grep <tomcat_pid> // Monitor open network connections and their states.
+netstat -anp | grep <tomcat_pid> # Monitor open network connections and their states.
 
-vi /path/to/tomcat/conf/server.xml // Tomcat configurations
+vi /path/to/tomcat/conf/server.xml # Tomcat configurations
+```
 
 ### 4. Slow Application
 
 Recent code changes or deployment issues could cause performance degradation. Look for change logs, any changes to configurations, etc. A quick look at the application logs for an increase in errors or stack traces could be helpful.
 
-Tools like VisualVM (jvisualvm) or jconsole could be helpful to understand JVM-based application performance.
+Tools like VisualVM (`jvisualvm`) or `jconsole` could be helpful to understand JVM-based application performance.
 
 ### 5. User Issues
 
